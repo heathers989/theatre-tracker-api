@@ -257,3 +257,62 @@ Processing by MusicalsController#show as */*
 Completed 200 OK in 40ms (Views: 0.3ms | ActiveRecord: 31.4ms | Allocations: 2213)
 
 
+Started POST "/musicals/1/reviews" for ::1 at 2020-05-17 23:00:27 -0400
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ReviewsController#create as */*
+  Parameters: {"review"=>{"show_seen"=>"Moulin Rouge! the Musical", "reviewer_name"=>"Erica", "rating"=>"5"}, "musical_id"=>"1"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/reviews_controller.rb:21:in `create'
+  [1m[36mMusical Load (0.8ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals" WHERE "musicals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/reviews_controller.rb:21:in `create'
+  [1m[36mReview Create (18.4ms)[0m  [1m[32mINSERT INTO "reviews" ("show_seen", "rating", "created_at", "updated_at", "musical_id", "reviewer_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_seen", "Moulin Rouge! the Musical"], ["rating", 5], ["created_at", "2020-05-18 03:00:28.057126"], ["updated_at", "2020-05-18 03:00:28.057126"], ["musical_id", 1], ["reviewer_name", "Erica"]]
+  ↳ app/controllers/reviews_controller.rb:21:in `create'
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/reviews_controller.rb:21:in `create'
+Completed 201 Created in 111ms (Views: 1.4ms | ActiveRecord: 35.0ms | Allocations: 28380)
+
+
+Started GET "/musicals/1" for ::1 at 2020-05-17 23:00:44 -0400
+Processing by MusicalsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mMusical Load (10.3ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals" WHERE "musicals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/musicals_controller.rb:44:in `set_musical'
+  [1m[36mReview Load (2.5ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."musical_id" = $1[0m  [["musical_id", 1]]
+  ↳ app/controllers/musicals_controller.rb:13:in `show'
+Completed 200 OK in 50ms (Views: 0.2ms | ActiveRecord: 12.8ms | Allocations: 4801)
+
+
+Started DELETE "/musicals/1/reviews/2" for ::1 at 2020-05-17 23:01:20 -0400
+Processing by ReviewsController#destroy as */*
+  Parameters: {"musical_id"=>"1", "id"=>"2"}
+  [1m[36mReview Load (9.0ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/reviews_controller.rb:45:in `set_review'
+  [1m[35m (21.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/reviews_controller.rb:39:in `destroy'
+  [1m[36mReview Destroy (0.8ms)[0m  [1m[31mDELETE FROM "reviews" WHERE "reviews"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/reviews_controller.rb:39:in `destroy'
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/reviews_controller.rb:39:in `destroy'
+Completed 204 No Content in 45ms (ActiveRecord: 32.3ms | Allocations: 2691)
+
+
+Started GET "/musicals/1" for ::1 at 2020-05-17 23:01:29 -0400
+Processing by MusicalsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mMusical Load (0.7ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals" WHERE "musicals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/musicals_controller.rb:44:in `set_musical'
+  [1m[36mReview Load (26.5ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."musical_id" = $1[0m  [["musical_id", 1]]
+  ↳ app/controllers/musicals_controller.rb:13:in `show'
+Completed 200 OK in 34ms (Views: 0.2ms | ActiveRecord: 27.2ms | Allocations: 2198)
+
+
+Started GET "/musicals/1" for ::1 at 2020-05-17 23:02:43 -0400
+Processing by MusicalsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMusical Load (0.5ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals" WHERE "musicals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/musicals_controller.rb:44:in `set_musical'
+  [1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."musical_id" = $1[0m  [["musical_id", 1]]
+  ↳ app/controllers/musicals_controller.rb:13:in `show'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 1.1ms | Allocations: 2214)
+
+

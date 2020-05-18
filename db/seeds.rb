@@ -18,6 +18,7 @@ Musical.create([
 Review.create([
     {
         reviewer_name: 'Heather',
+        show_seen: 'Moulin Rouge! the Musical',
         musical_id: 1,
         date_of_show: '2020-01-26',
         cast_to_see: 'Aaron Tveit',
