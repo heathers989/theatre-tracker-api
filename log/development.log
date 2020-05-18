@@ -1,0 +1,259 @@
+  [1m[35m (424.7ms)[0m  [1m[35mCREATE DATABASE "theatre_tracker_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (154.5ms)[0m  [1m[35mCREATE DATABASE "theatre_tracker_api_test" ENCODING = 'unicode'[0m
+  [1m[35m (87.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (8.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4118477634153129240)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMusicals (20200518021324)
+  [1m[35m (23.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (12.6ms)[0m  [1m[35mCREATE TABLE "musicals" ("id" bigserial primary key, "name" character varying, "cast" character varying[] DEFAULT '{}', "understudies" character varying[] DEFAULT '{}', "theater" character varying, "playbill" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200518021324"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20200518021501)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (33.4ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "show_seen" character varying, "cast_to_see" character varying, "date_of_show" date, "if_understudies" boolean, "understudies_seen" character varying[] DEFAULT '{}', "rating" integer, "if_stagedoor" boolean, "at_stagedoor" character varying[] DEFAULT '{}', "photos" character varying, "comments" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200518021501"]]
+  [1m[35m (10.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddForeignKeyToReviews (20200518021617)
+  [1m[35m (23.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "reviews" ADD "musical_id" integer[0m
+  [1m[36mprimary::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200518021617"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (21.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-05-18 02:17:10.971090"], ["updated_at", "2020-05-18 02:17:10.971090"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(4118477634153129240)[0m
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMusical Create (1.3ms)[0m  [1m[32mINSERT INTO "musicals" ("name", "cast", "understudies", "theater", "playbill", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Moulin Rouge! The Musical"], ["cast", "{\"Karen Olivo\",\"Aaron Tveit\",\"Danny Burnstein\",\"Sahr Ngaujah\",\"Tam Mutu\",\"Ricky Rojas\",\"Robyn Hurder\",\"Jacqueline B. Arnold\",\"Holly James\",\"Jeigh Madjus\"}"], ["understudies", "{\"Ashley Loren\",\"Amber Ardolino\",\"Aaron Finley\",\"Brandt Martinez\",\"Caleb Marshall\",\"Austin Durant\",\"Kevin Curtis\",\"Jodi McFadden\",\"Kevyn Morrow\",\"Morgan Marcell\",\"Dylan Paul\"}"], ["theater", "Al Hirschfeld Theatre"], ["playbill", "https://bsp-static.playbill.com/dims4/default/04abed6/2147483647/resize/x250%3C/quality/90/?url=http%3A%2F%2Fpb-asset-replication.s3.amazonaws.com%2Fa0%2F89%2Fd6cc28fa4f33b807d3a45774ea38%2Fmouling-rouge-playbill-2019-06-28-web.jpg"], ["created_at", "2020-05-18 02:26:28.167662"], ["updated_at", "2020-05-18 02:26:28.167662"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4118477634153129240)[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddReviewerName (20200518022730)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(4118477634153129240)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4118477634153129240)[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddReviewerName (20200518022730)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "reviews" ADD "reviewer_name" character varying[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200518022730"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(4118477634153129240)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (113.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "theatre_tracker_api_development"[0m
+  [1m[35m (135.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "theatre_tracker_api_test"[0m
+  [1m[35m (589.3ms)[0m  [1m[35mCREATE DATABASE "theatre_tracker_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (202.2ms)[0m  [1m[35mCREATE DATABASE "theatre_tracker_api_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "musicals" CASCADE[0m
+  [1m[35m (13.0ms)[0m  [1m[35mCREATE TABLE "musicals" ("id" bigserial primary key, "name" character varying, "cast" character varying[] DEFAULT '{}', "understudies" character varying[] DEFAULT '{}', "theater" character varying, "playbill" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (23.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "reviews" CASCADE[0m
+  [1m[35m (9.5ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "show_seen" character varying, "cast_to_see" character varying, "date_of_show" date, "if_understudies" boolean, "understudies_seen" character varying[] DEFAULT '{}', "rating" integer, "if_stagedoor" boolean, "at_stagedoor" character varying[] DEFAULT '{}', "photos" character varying, "comments" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "musical_id" integer, "reviewer_name" character varying)[0m
+  [1m[35m (30.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200518022730)[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200518021324),
+(20200518021501),
+(20200518021617);
+
+[0m
+  [1m[35m (30.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-05-18 02:28:53.968667"], ["updated_at", "2020-05-18 02:28:53.968667"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "e05f887a744c2d947f44f4816cf028ac6eb93d0d"], ["created_at", "2020-05-18 02:28:54.011451"], ["updated_at", "2020-05-18 02:28:54.011451"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "musicals" CASCADE[0m
+  [1m[35m (15.3ms)[0m  [1m[35mCREATE TABLE "musicals" ("id" bigserial primary key, "name" character varying, "cast" character varying[] DEFAULT '{}', "understudies" character varying[] DEFAULT '{}', "theater" character varying, "playbill" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (21.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "reviews" CASCADE[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "show_seen" character varying, "cast_to_see" character varying, "date_of_show" date, "if_understudies" boolean, "understudies_seen" character varying[] DEFAULT '{}', "rating" integer, "if_stagedoor" boolean, "at_stagedoor" character varying[] DEFAULT '{}', "photos" character varying, "comments" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "musical_id" integer, "reviewer_name" character varying)[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (23.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200518022730)[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200518021324),
+(20200518021501),
+(20200518021617);
+
+[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-05-18 02:28:54.213857"], ["updated_at", "2020-05-18 02:28:54.213857"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (23.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2020-05-18 02:28:54.224809"], ["key", "environment"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "e05f887a744c2d947f44f4816cf028ac6eb93d0d"], ["created_at", "2020-05-18 02:28:54.261021"], ["updated_at", "2020-05-18 02:28:54.261021"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMusical Create (1.5ms)[0m  [1m[32mINSERT INTO "musicals" ("name", "cast", "understudies", "theater", "playbill", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Moulin Rouge! The Musical"], ["cast", "{\"Karen Olivo\",\"Aaron Tveit\",\"Danny Burnstein\",\"Sahr Ngaujah\",\"Tam Mutu\",\"Ricky Rojas\",\"Robyn Hurder\",\"Jacqueline B. Arnold\",\"Holly James\",\"Jeigh Madjus\"}"], ["understudies", "{\"Ashley Loren\",\"Amber Ardolino\",\"Aaron Finley\",\"Brandt Martinez\",\"Caleb Marshall\",\"Austin Durant\",\"Kevin Curtis\",\"Jodi McFadden\",\"Kevyn Morrow\",\"Morgan Marcell\",\"Dylan Paul\"}"], ["theater", "Al Hirschfeld Theatre"], ["playbill", "https://bsp-static.playbill.com/dims4/default/04abed6/2147483647/resize/x250%3C/quality/90/?url=http%3A%2F%2Fpb-asset-replication.s3.amazonaws.com%2Fa0%2F89%2Fd6cc28fa4f33b807d3a45774ea38%2Fmouling-rouge-playbill-2019-06-28-web.jpg"], ["created_at", "2020-05-18 02:28:54.417851"], ["updated_at", "2020-05-18 02:28:54.417851"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (23.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (141.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "theatre_tracker_api_development"[0m
+  [1m[35m (71.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "theatre_tracker_api_test"[0m
+  [1m[35m (543.4ms)[0m  [1m[35mCREATE DATABASE "theatre_tracker_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (194.2ms)[0m  [1m[35mCREATE DATABASE "theatre_tracker_api_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (22.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "musicals" CASCADE[0m
+  [1m[35m (14.4ms)[0m  [1m[35mCREATE TABLE "musicals" ("id" bigserial primary key, "name" character varying, "cast" character varying[] DEFAULT '{}', "understudies" character varying[] DEFAULT '{}', "theater" character varying, "playbill" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "reviews" CASCADE[0m
+  [1m[35m (33.6ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "show_seen" character varying, "cast_to_see" character varying, "date_of_show" date, "if_understudies" boolean, "understudies_seen" character varying[] DEFAULT '{}', "rating" integer, "if_stagedoor" boolean, "at_stagedoor" character varying[] DEFAULT '{}', "photos" character varying, "comments" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "musical_id" integer, "reviewer_name" character varying)[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200518022730)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200518021324),
+(20200518021501),
+(20200518021617);
+
+[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (17.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-05-18 02:29:24.932993"], ["updated_at", "2020-05-18 02:29:24.932993"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "e05f887a744c2d947f44f4816cf028ac6eb93d0d"], ["created_at", "2020-05-18 02:29:24.968171"], ["updated_at", "2020-05-18 02:29:24.968171"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "musicals" CASCADE[0m
+  [1m[35m (38.4ms)[0m  [1m[35mCREATE TABLE "musicals" ("id" bigserial primary key, "name" character varying, "cast" character varying[] DEFAULT '{}', "understudies" character varying[] DEFAULT '{}', "theater" character varying, "playbill" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "reviews" CASCADE[0m
+  [1m[35m (33.3ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "show_seen" character varying, "cast_to_see" character varying, "date_of_show" date, "if_understudies" boolean, "understudies_seen" character varying[] DEFAULT '{}', "rating" integer, "if_stagedoor" boolean, "at_stagedoor" character varying[] DEFAULT '{}', "photos" character varying, "comments" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "musical_id" integer, "reviewer_name" character varying)[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200518022730)[0m
+  [1m[35m (22.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200518021324),
+(20200518021501),
+(20200518021617);
+
+[0m
+  [1m[35m (6.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-05-18 02:29:25.217677"], ["updated_at", "2020-05-18 02:29:25.217677"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.5ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2020-05-18 02:29:25.254873"], ["key", "environment"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "e05f887a744c2d947f44f4816cf028ac6eb93d0d"], ["created_at", "2020-05-18 02:29:25.263797"], ["updated_at", "2020-05-18 02:29:25.263797"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (18.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMusical Create (2.0ms)[0m  [1m[32mINSERT INTO "musicals" ("name", "cast", "understudies", "theater", "playbill", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Moulin Rouge! The Musical"], ["cast", "{\"Karen Olivo\",\"Aaron Tveit\",\"Danny Burnstein\",\"Sahr Ngaujah\",\"Tam Mutu\",\"Ricky Rojas\",\"Robyn Hurder\",\"Jacqueline B. Arnold\",\"Holly James\",\"Jeigh Madjus\"}"], ["understudies", "{\"Ashley Loren\",\"Amber Ardolino\",\"Aaron Finley\",\"Brandt Martinez\",\"Caleb Marshall\",\"Austin Durant\",\"Kevin Curtis\",\"Jodi McFadden\",\"Kevyn Morrow\",\"Morgan Marcell\",\"Dylan Paul\"}"], ["theater", "Al Hirschfeld Theatre"], ["playbill", "https://bsp-static.playbill.com/dims4/default/04abed6/2147483647/resize/x250%3C/quality/90/?url=http%3A%2F%2Fpb-asset-replication.s3.amazonaws.com%2Fa0%2F89%2Fd6cc28fa4f33b807d3a45774ea38%2Fmouling-rouge-playbill-2019-06-28-web.jpg"], ["created_at", "2020-05-18 02:29:25.432260"], ["updated_at", "2020-05-18 02:29:25.432260"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (17.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMusical Load (0.5ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals" WHERE "musicals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mReview Create (1.0ms)[0m  [1m[32mINSERT INTO "reviews" ("cast_to_see", "date_of_show", "if_understudies", "understudies_seen", "rating", "if_stagedoor", "at_stagedoor", "comments", "created_at", "updated_at", "musical_id", "reviewer_name") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["cast_to_see", "Aaron Tveit"], ["date_of_show", "2020-01-26"], ["if_understudies", true], ["understudies_seen", "{\"Ashley Loren\",\"Dylan Paul\"}"], ["rating", 5], ["if_stagedoor", true], ["at_stagedoor", "{\"Danny Burnstein\",\"Jeigh Madjus\",\"Ashley Loren\"}"], ["comments", "Loved seeing the show again! Dylan and Ashley were both great and Aaron gave a moving and powerful performance as always!"], ["created_at", "2020-05-18 02:29:25.556832"], ["updated_at", "2020-05-18 02:29:25.556832"], ["musical_id", 1], ["reviewer_name", "Heather"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/musicals" for ::1 at 2020-05-17 22:44:15 -0400
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MusicalsController#index as HTML
+  [1m[36mMusical Load (0.9ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals"[0m
+  ↳ app/controllers/musicals_controller.rb:8:in `index'
+Completed 200 OK in 50ms (Views: 16.1ms | ActiveRecord: 27.3ms | Allocations: 9272)
+
+
+Started GET "/musicals/1" for ::1 at 2020-05-17 22:44:24 -0400
+Processing by MusicalsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMusical Load (0.9ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals" WHERE "musicals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/musicals_controller.rb:44:in `set_musical'
+  [1m[36mReview Load (0.8ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."musical_id" = $1[0m  [["musical_id", 1]]
+  ↳ app/controllers/musicals_controller.rb:13:in `show'
+Completed 200 OK in 75ms (Views: 0.1ms | ActiveRecord: 10.0ms | Allocations: 20263)
+
+
+Started GET "/musicals/1" for ::1 at 2020-05-17 22:46:01 -0400
+Processing by MusicalsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mMusical Load (1.7ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals" WHERE "musicals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/musicals_controller.rb:44:in `set_musical'
+  [1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."musical_id" = $1[0m  [["musical_id", 1]]
+  ↳ app/controllers/musicals_controller.rb:13:in `show'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 2.4ms | Allocations: 2189)
+
+
+Started PUT "/musicals/1/reviews/1" for ::1 at 2020-05-17 22:47:01 -0400
+Processing by ReviewsController#update as */*
+  Parameters: {"review"=>{"show_seen"=>"Moulin Rouge! the Musical"}, "musical_id"=>"1", "id"=>"1"}
+  [1m[36mReview Load (0.5ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/reviews_controller.rb:45:in `set_review'
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/reviews_controller.rb:30:in `update'
+  [1m[36mMusical Load (0.4ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals" WHERE "musicals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/reviews_controller.rb:30:in `update'
+  [1m[36mReview Update (0.8ms)[0m  [1m[33mUPDATE "reviews" SET "show_seen" = $1, "updated_at" = $2 WHERE "reviews"."id" = $3[0m  [["show_seen", "Moulin Rouge! the Musical"], ["updated_at", "2020-05-18 02:47:01.175210"], ["id", 1]]
+  ↳ app/controllers/reviews_controller.rb:30:in `update'
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/reviews_controller.rb:30:in `update'
+Completed 200 OK in 38ms (Views: 1.1ms | ActiveRecord: 3.7ms | Allocations: 5362)
+
+
+Started GET "/musicals/1/reviews" for ::1 at 2020-05-17 22:47:14 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/musicals/1/reviews"):
+  
+actionpack (6.0.3) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3) lib/rails/engine.rb:527:in `call'
+puma (4.3.3) lib/puma/configuration.rb:228:in `call'
+puma (4.3.3) lib/puma/server.rb:682:in `handle_request'
+puma (4.3.3) lib/puma/server.rb:472:in `process_client'
+puma (4.3.3) lib/puma/server.rb:328:in `block in run'
+puma (4.3.3) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/musicals/1" for ::1 at 2020-05-17 22:47:22 -0400
+Processing by MusicalsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mMusical Load (1.2ms)[0m  [1m[34mSELECT "musicals".* FROM "musicals" WHERE "musicals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/musicals_controller.rb:44:in `set_musical'
+  [1m[36mReview Load (30.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."musical_id" = $1[0m  [["musical_id", 1]]
+  ↳ app/controllers/musicals_controller.rb:13:in `show'
+Completed 200 OK in 40ms (Views: 0.3ms | ActiveRecord: 31.4ms | Allocations: 2213)
+
+
