@@ -33,6 +33,7 @@ Review.create([
         rating: 5,
         if_stagedoor: true,
         at_stagedoor: ['Danny Burnstein', 'Jeigh Madjus', 'Ashley Loren'],
+        photos: "https://i.imgur.com/QQQ53a3.jpg",
         comments: 'Loved seeing the show again! Dylan and Ashley were both great and Aaron gave a moving and powerful performance as always!'
 
     }
