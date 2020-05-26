@@ -18,6 +18,12 @@ Musical.create([
     understudies: ['Benny Elledge'],
     theater: 'Brooks Atkinson Theatre',
     playbill: 'https://bsp-static.playbill.com/dims4/default/e24e251/2147483647/resize/x250%3C/quality/90/?url=http%3A%2F%2Fpb-asset-replication.s3.amazonaws.com%2F7e%2F33%2F35b1694e45dcaf6ee3190d3285df%2Fwaitress-playbill-march-25-16-web.jpg'
+  },
+  { name: "Pretty Woman the Musical", 
+    cast: ['Samantha Barks', 'Andy Karl', 'Orfeh', 'Eric Anderson', 'Jason Danieley', 'Matthew Stocke', 'Anna Eilinsfeld', 'Eric Anderson', 'Jennifer Sanchez', 'Tommy Bracco', 'Ellyn Marie Marsh', 'Allison Blackwell', 'Robby Clater'],
+    understudies: ['Jillian Mueller', 'Matt Farcher', 'Brian Cali', 'Nico DeJesus', 'Jessica Crouch', 'Jesse Wildman Foster'],
+    theater: 'Nederlander Theatre',
+    playbill: 'https://bsp-static.playbill.com/dims4/default/9a8f73f/2147483647/resize/x250%3C/quality/90/?url=http%3A%2F%2Fpb-asset-replication.s3.amazonaws.com%2F7b%2F0e%2F6001db6646c6826c46e36f8b5298%2Fpretty-woman-the-musical-playbill-2018-07-20-web.jpg'
   }
 ])
 
