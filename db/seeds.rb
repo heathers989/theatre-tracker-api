@@ -15,7 +15,7 @@ Musical.create([
   },
   { name: "Waitress", 
     cast: ['Jessie Mueller', 'Drew Gehling', 'Nick Cordero', 'Keala Settle', 'Kimiko Glenn', 'Dakin Matthews', 'Christopher Fitzgerald', 'Eric Anderson', 'Charity Angel Dawson', 'Claire Keane', 'McKenna Keane'],
-    understudies: ['Ragan PHarris', 'Stephanie Torns', 'Molly Hager', 'Henry Gottfried', 'Ryan Vasquez', 'Max Kumangai', 'Thay Floyd'],
+    understudies: ['Ragan Pharris', 'Stephanie Torns', 'Molly Hager', 'Henry Gottfried', 'Ryan Vasquez', 'Max Kumangai', 'Thay Floyd'],
     theater: 'Brooks Atkinson Theatre',
     playbill: 'https://bsp-static.playbill.com/dims4/default/e24e251/2147483647/resize/x250%3C/quality/90/?url=http%3A%2F%2Fpb-asset-replication.s3.amazonaws.com%2F7e%2F33%2F35b1694e45dcaf6ee3190d3285df%2Fwaitress-playbill-march-25-16-web.jpg'
   },
