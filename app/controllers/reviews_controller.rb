@@ -15,8 +15,10 @@ class ReviewsController < ApplicationController
 
   # POST /reviews
   def create
+    puts review_params
     @review = Review.new(review_params)
     @review.musical_id = params[:musical_id]
+    @review.date_of_show = Date.strptime(review_params[:date_of_show], '%m-%d-%Y')
 
     if @review.save
       render json: @review, status: :created, location: @review
