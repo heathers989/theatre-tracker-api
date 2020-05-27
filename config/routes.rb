@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'welcome#index'
   resources :reviews, only: [:index, :show]
   resources :musicals do
     resources :reviews, only: [:create, :update, :destroy]
